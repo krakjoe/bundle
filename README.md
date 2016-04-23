@@ -15,15 +15,15 @@ API:
 
   ```static inline void php_{$PHP_LIB}_init(HashTable *index, HashTable *includes);```
 
-	Shall accept two uninitialized HashTables, and create index of code
+  > Shall accept two uninitialized HashTables, and create index of code
 
   ```static inline void php_{$PHP_LIB}_include(HashTable *index, HashTable *includes, char *path, size_t len, zval *rv);```
 
-	Shall find path in index table, and eval the code if it was not already included
+  > Shall find path in index table, and eval the code if it was not already included
 
   ```static inline void php_{$PHP_LIB}_shutdown(HashTable *index, HashTable *includes);```
 
-	Shall release resources used by index and include table
+  > Shall release resources used by index and include table
 
 yolo, and goodnight ...
  
