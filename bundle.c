@@ -55,26 +55,22 @@ PHP_MSHUTDOWN_FUNCTION(bundle)
  */
 PHP_RINIT_FUNCTION(bundle)
 {
-	HashTable tmp;
-	zval *found;
+	zval rv;
+	HashTable index, includes;
 
 #if defined(COMPILE_DL_BUNDLE) && defined(ZTS)
 	ZEND_TSRMLS_CACHE_UPDATE();
 #endif
-	
-	zend_hash_init(&tmp, 8, NULL, ZVAL_PTR_DTOR, 0);
 
 	/* this is generated, just builds hashtable of code, no compile yet */
-	php_user_init(&tmp);
+	php_user_init(&index, &includes);
 
 	/* you have your embedded code ... */
-	if ((found = zend_hash_str_find(&tmp, ZEND_STRL("php/file.php")))) {
-		php_var_dump(found, 0);
-	}
+	php_user_include(&index, &includes, ZEND_STRL("php/file.php"), &rv);
 
 	/* remember to cleanup */
-	zend_hash_destroy(&tmp);
-	
+	php_user_shutdown(&index, &includes);
+
 	return SUCCESS;
 }
 /* }}} */
